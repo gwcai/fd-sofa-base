@@ -1,12 +1,8 @@
 package com.fudianbank.base.impl;
 
-import com.alipay.sofa.runtime.api.annotation.SofaService;
-import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
-import com.fudianbank.base.esb.message.ReqMessageHead;
-import com.fudianbank.base.exception.FdRuntimeException;
+import com.fdb.topplan.base.exception.FDBRuntimeException;
+import com.fdb.topplan.base.head.FDBRequestTools;
 import com.fudianbank.base.facade.HelloService;
-import com.fudianbank.base.rpc.utils.RpcUtil;
-import org.springframework.stereotype.Service;
 
 /***
  * @Author: gaoweicai
@@ -18,15 +14,14 @@ import org.springframework.stereotype.Service;
 public class HelloServiceImpl implements HelloService {
     @Override
     public String hello(String name) {
-        ReqMessageHead messageHead = RpcUtil.getReqMessageHead();
-        String eventNo = messageHead.getSysHead().getEventNo();
-        //System.out.println(messageHead.toJSON().toJSONString());
+        String eventNo = FDBRequestTools.SysHead.getEventNo();
+        System.out.println(eventNo);
 
         return "Hello," + name;
     }
 
     @Override
     public void exception() {
-        throw new FdRuntimeException("0001","测试");
+        throw new FDBRuntimeException("0001","测试");
     }
 }

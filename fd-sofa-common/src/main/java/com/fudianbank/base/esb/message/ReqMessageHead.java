@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fudianbank.base.esb.head.ReqAppHead;
 import com.fudianbank.base.esb.head.ReqLocalHead;
 import com.fudianbank.base.esb.head.ReqSysHead;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +26,9 @@ public class ReqMessageHead {
      */
     public HashMap toMap(){
         HashMap map = new HashMap();
-        map.put("SysHead", JSON.toJSONString(sysHead));
-        map.put("AppHead",JSON.toJSONString(appHead));
-        map.put("LocalHead",JSON.toJSONString(localHead));
+        map.put("SysHead", StringEscapeUtils.unescapeJava(JSON.toJSONString(sysHead)));
+        map.put("AppHead",StringEscapeUtils.unescapeJava(JSON.toJSONString(appHead)));
+        map.put("LocalHead",StringEscapeUtils.unescapeJava(JSON.toJSONString(localHead)));
         return map;
     }
 

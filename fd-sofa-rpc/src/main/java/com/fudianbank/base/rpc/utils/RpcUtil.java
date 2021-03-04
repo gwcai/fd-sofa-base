@@ -9,6 +9,7 @@ import com.fudianbank.base.esb.head.ReqSysHead;
 import com.fudianbank.base.esb.message.ReqMessageHead;
 import com.fudianbank.base.esb.message.ResMessageHead;
 import com.fudianbank.base.exception.FdRuntimeException;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import java.nio.charset.Charset;
 
@@ -24,9 +25,9 @@ public class RpcUtil {
      */
     public static ReqMessageHead getReqMessageHead(){
         RpcInvokeContext context = RpcInvokeContext.getContext();
-        String strSysHead = context.getRequestBaggage("SysHead");
-        String strLocalHead = context.getRequestBaggage("LocalHead");
-        String strAppHead = context.getRequestBaggage("AppHead");
+        String strSysHead = StringEscapeUtils.unescapeJava(context.getRequestBaggage("SysHead"));
+        String strLocalHead = StringEscapeUtils.unescapeJava(context.getRequestBaggage("LocalHead"));
+        String strAppHead = StringEscapeUtils.unescapeJava(context.getRequestBaggage("AppHead"));
 
         ReqMessageHead head = new ReqMessageHead();
         head.setSysHead(JSON.parseObject(strSysHead,ReqSysHead.class));
@@ -49,7 +50,7 @@ public class RpcUtil {
 
     public static ResMessageHead getResMessageHead(){
         RpcInvokeContext context = RpcInvokeContext.getContext();
-        String strSysHead = context.getResponseBaggage("SysHead");
+        String strSysHead = StringEscapeUtils.unescapeJava(context.getResponseBaggage("SysHead"));
         return JSON.parseObject(strSysHead,ResMessageHead.class);
     }
 
@@ -90,16 +91,8 @@ public class RpcUtil {
      */
     private static void setResMessageHead(ResMessageHead sysHead){
         RpcInvokeContext context = RpcInvokeContext.getContext();
-        try {
-            String strData = JSON.toJSONString(sysHead);
-            //String data = new String(strData.getBytes("UTF-8"), Charset.forName("UTF-8"));
-            context.putResponseBaggage("SysHead", "测试");
-
-            strData = context.getResponseBaggage("SysHead");
-            System.out.println(strData);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
+        String strData = JSON.toJSONString(sysHead);
+        context.putResponseBaggage("SysHead", StringEscapeUtils.escapeJava(strData));
     }
 
     private static ResMessageHead setResHeadCommon(){

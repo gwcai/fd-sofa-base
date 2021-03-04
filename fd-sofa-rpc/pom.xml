@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.alipay.sofa</groupId>
         <artifactId>sofaboot-enterprise-dependencies</artifactId>
-        <version>3.4.2</version>
+        <version>3.4.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>fd-sofa-rpc</artifactId>
@@ -20,7 +20,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-all</artifactId>
+            <version>1.35.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
