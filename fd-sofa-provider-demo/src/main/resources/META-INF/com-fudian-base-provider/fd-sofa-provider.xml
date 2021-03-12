@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
             http://schema.alipay.com/sofa/schema/slite   http://schema.alipay.com/sofa/slite.xsd"
        default-autowire="byName">
-    <bean id="helloService" class="com.fudianbank.base.impl.HelloServiceImpl"/>
+    <bean id="helloService" class="com.fudianbank.base.infrastructure.HelloServiceImpl"/>
     <sofa:service ref="helloService" interface="com.fudianbank.base.facade.HelloService">
         <sofa:binding.bolt>
             <sofa:global-attrs registry="127.0.0.1" timeout="3000"

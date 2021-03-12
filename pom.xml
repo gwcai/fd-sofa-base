@@ -9,11 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>fd-sofa-common</module>
         <module>fd-sofa-rpc</module>
         <module>fd-sofa-provider-demo</module>
         <module>fd-sofa-consumer-demo</module>
     </modules>
-
-
 </project>

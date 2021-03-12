@@ -1,7 +1,6 @@
 package com.fudianbank.base.rpc.filter;
 
 import com.alipay.sofa.rpc.config.ConsumerConfig;
-import com.alipay.sofa.rpc.core.exception.RpcErrorType;
 import com.alipay.sofa.rpc.core.exception.SofaRpcException;
 import com.alipay.sofa.rpc.core.request.SofaRequest;
 import com.alipay.sofa.rpc.core.response.SofaResponse;
@@ -11,8 +10,8 @@ import com.alipay.sofa.rpc.filter.Filter;
 import com.alipay.sofa.rpc.filter.FilterInvoker;
 import com.alipay.sofa.rpc.log.Logger;
 import com.alipay.sofa.rpc.log.LoggerFactory;
-import com.fudianbank.base.exception.FdRuntimeException;
-import com.fudianbank.base.rpc.utils.RpcUtil;
+import com.fdb.topplan.common.exception.FDBRuntimeException;
+import com.fdb.topplan.common.head.FDBResponseTools;
 
 /***
  * @Author: gaoweicai
@@ -21,6 +20,7 @@ import com.fudianbank.base.rpc.utils.RpcUtil;
  */
 @Extension(value = "sofaRpcFilter", order = -10000)
 @AutoActive(providerSide = true,consumerSide = true)
+//@AutoActive(consumerSide = true)
 public class SofaRpcFilter extends Filter {
     /**
      * 日志
@@ -29,14 +29,19 @@ public class SofaRpcFilter extends Filter {
             .getLogger(SofaRpcFilter.class);
 
     @Override
+    public boolean needToLoad(FilterInvoker invoker){
+        return true;
+    }
+
+    @Override
     public SofaResponse invoke(FilterInvoker invoker, SofaRequest sofaRequest) throws SofaRpcException {
         SofaResponse response = new SofaResponse();
         try {
             response = invoker.invoke(sofaRequest);
-            if (response.getAppResponse() instanceof FdRuntimeException) {
-                FdRuntimeException exception = (FdRuntimeException) response.getAppResponse();
+            if (response.getAppResponse() instanceof FDBRuntimeException) {
+                FDBRuntimeException exception = (FDBRuntimeException) response.getAppResponse();
                 LOGGER.error("rpc call failed:{}", exception.getMessage());
-                RpcUtil.setFailResMessageHead(exception);
+                FDBResponseTools.setFailResMessageHead(exception,"",null);
             }
         }catch (Exception ex){
 

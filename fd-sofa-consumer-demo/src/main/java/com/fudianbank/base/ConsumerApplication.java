@@ -1,13 +1,14 @@
 package com.fudianbank.base;
 
-import com.alibaba.fastjson.JSON;
-import com.alipay.sofa.rpc.context.RpcInvokeContext;
-import com.fdb.topplan.base.head.FDBRequestTools;
-import com.fdb.topplan.base.head.FDBResponseTools;
-import com.fudianbank.base.HelloService;
+import com.fdb.topplan.common.head.FDBRequestTools;
+import com.fdb.topplan.common.head.FDBResponseTools;
+import com.fudianbank.base.rpc.BaseApplication;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 /***
@@ -16,8 +17,10 @@ import org.springframework.context.annotation.ImportResource;
  * @Description:
  */
 @ImportResource({"classpath*:META-INF/com-fudian-base-consumer/*.xml"})
-@SpringBootApplication
-public class ConsumerApplication {
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan("com.fudianbank.base.*")
+public class ConsumerApplication extends BaseApplication {
 
 //    @SofaReference(interfaceType = HelloService.class, uniqueId = "${service.unique.id}", binding = @SofaReferenceBinding(bindingType = "bolt"))
 //    private static HelloService helloService;
@@ -34,7 +37,8 @@ public class ConsumerApplication {
 
         helloService.exception();
         String strSysHead = FDBResponseTools.SysHead.getRetMsg();
-        System.out.println(strSysHead);
+        String eventNo = FDBResponseTools.SysHead.getEventNo();
+        System.out.println(eventNo);
 //        ResMessageHead messageHead = RpcUtil.getResMessageHead();
 //        System.out.println(JSON.toJSON(messageHead).toString());
     }

@@ -1,8 +1,10 @@
-package com.fudianbank.base.impl;
+package com.fudianbank.base.infrastructure;
 
-import com.fdb.topplan.base.exception.FDBRuntimeException;
-import com.fdb.topplan.base.head.FDBRequestTools;
+import com.fdb.topplan.common.exception.FDBRuntimeException;
+import com.fdb.topplan.common.head.FDBRequestTools;
+import com.fdb.topplan.common.head.FDBResponseTools;
 import com.fudianbank.base.facade.HelloService;
+import com.fudianbank.base.rpc.log.SofaLogBack;
 
 /***
  * @Author: gaoweicai
@@ -11,7 +13,9 @@ import com.fudianbank.base.facade.HelloService;
  */
 //@Service
 //@SofaService(interfaceType = HelloService.class, uniqueId = "${service.unique.id}", bindings = { @SofaServiceBinding(bindingType = "bolt") })
+@SofaLogBack
 public class HelloServiceImpl implements HelloService {
+
     @Override
     public String hello(String name) {
         String eventNo = FDBRequestTools.SysHead.getEventNo();
@@ -22,6 +26,8 @@ public class HelloServiceImpl implements HelloService {
 
     @Override
     public void exception() {
+        String e = FDBRequestTools.SysHead.getEventNo();
+        FDBResponseTools.SysHead.setEventNo(e);
         throw new FDBRuntimeException("0001","测试");
     }
 }
