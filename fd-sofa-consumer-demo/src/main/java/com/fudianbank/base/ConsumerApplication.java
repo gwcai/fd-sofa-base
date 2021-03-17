@@ -17,9 +17,10 @@ import org.springframework.context.annotation.ImportResource;
  * @Description:
  */
 @ImportResource({"classpath*:META-INF/com-fudian-base-consumer/*.xml"})
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan("com.fudianbank.base.*")
+//@Configuration
+//@EnableAutoConfiguration
+//@ComponentScan("com.fudianbank.base.*")
+@SpringBootApplication
 public class ConsumerApplication extends BaseApplication {
 
 //    @SofaReference(interfaceType = HelloService.class, uniqueId = "${service.unique.id}", binding = @SofaReferenceBinding(bindingType = "bolt"))

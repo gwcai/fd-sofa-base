@@ -4,7 +4,8 @@ import com.fdb.topplan.common.exception.FDBRuntimeException;
 import com.fdb.topplan.common.head.FDBRequestTools;
 import com.fdb.topplan.common.head.FDBResponseTools;
 import com.fudianbank.base.facade.HelloService;
-import com.fudianbank.base.rpc.log.SofaLogBack;
+import com.fudianbank.base.rpc.log.LogAnnotation;
+import com.fudianbank.base.rpc.log.LogDigest;
 
 /***
  * @Author: gaoweicai
@@ -13,7 +14,7 @@ import com.fudianbank.base.rpc.log.SofaLogBack;
  */
 //@Service
 //@SofaService(interfaceType = HelloService.class, uniqueId = "${service.unique.id}", bindings = { @SofaServiceBinding(bindingType = "bolt") })
-@SofaLogBack
+@LogAnnotation(digest = LogDigest.DIGEST_QUERY)
 public class HelloServiceImpl implements HelloService {
 
     @Override

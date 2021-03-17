@@ -14,10 +14,10 @@ import org.springframework.context.annotation.ImportResource;
  * @Description:
  */
 @ImportResource({"classpath*:META-INF/com-fudian-base-provider/*.xml"})
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan("com.fudianbank.base.*")
-//@SpringBootApplication
+//@Configuration
+//@EnableAutoConfiguration
+//@ComponentScan("com.fudianbank.base.*")
+@SpringBootApplication
 public class ProviderApplication  extends BaseApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProviderApplication.class, args);
