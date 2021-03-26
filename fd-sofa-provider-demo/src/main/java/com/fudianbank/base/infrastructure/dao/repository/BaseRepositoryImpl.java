@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @Date: 2021/3/5 15:45
  * @Description:E
  */
-public class BaseRepositoryImpl<E extends Aggregate<ID>,T extends BaseDo<IDO>, ID extends Identifier,IDO> implements BaseRepository<E, ID> {
+public class BaseRepositoryImpl<E extends Aggregate<ID>,T extends BaseDo, ID extends Identifier> implements BaseRepository<E, ID> {
     private final IMapper mapper;
     DataConverter dataConverter;
 
@@ -38,7 +38,7 @@ public class BaseRepositoryImpl<E extends Aggregate<ID>,T extends BaseDo<IDO>, I
     @Override
     public E find(@NotNull ID id) {
         T dao = (T) mapper.selectById(id);
-        return (E) dataConverter.toEntity((UserDo)dao);
+        return (E) dataConverter.toEntity(dao);
     }
 
     @Override

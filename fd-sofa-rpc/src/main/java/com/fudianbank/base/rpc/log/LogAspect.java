@@ -14,12 +14,12 @@ import java.lang.reflect.Method;
 /***
  * @Author: gaoweicai
  * @Date: 2021/3/12 11:24
- * @Description: 日志切面
+ * @Description: 日志切面,
  */
 @Slf4j
 @Aspect
 @Component
-@Order(1)
+@Order(10)
 public class LogAspect {
 
     @Pointcut("@within(LogAnnotation) || @annotation(LogAnnotation)")
@@ -61,7 +61,7 @@ public class LogAspect {
     public void printLog(JoinPoint joinPoint,Object result){
         LogAnnotation annotation = getLogAnnotation(joinPoint);
         //log.info("Response Head: CnsmrSeqNo={},SvcSplrSeqNo={},EventNo={},TxnSt={},TxnDealTp={},RetCd={},RetMsg={},RetErrDataInf={}",
-        log.info("[{}]:{},{},{},{},{},{},{},{},{},{},{}",
+        log.info("[{}]:{},{},{},{},{},{},{},{},{},{},{},",
                 annotation.digest(),
                 joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(),
@@ -73,9 +73,9 @@ public class LogAspect {
                 FDBResponseTools.SysHead.getTxnDealTp(),
                 FDBResponseTools.SysHead.getRetCd(),
                 FDBResponseTools.SysHead.getRetMsg(),
-                FDBResponseTools.SysHead.getRetErrDataInf());
-
-        log.info("[{}-RESULT]: {}",annotation.digest(),result);
+                FDBResponseTools.SysHead.getRetErrDataInf(),
+                result
+        );
     }
 
     /***
@@ -96,7 +96,7 @@ public class LogAspect {
                 FDBRequestTools.SysHead.getEventNo(),
                 e.getMessage()
                 );
-        log.error("[{}-ERROR]:{}",annotation.digest(),e.getStackTrace());
+        //log.error("[{}-ERROR]:{}",annotation.digest(),e.getStackTrace());
     }
 
     /***

@@ -5,19 +5,16 @@ import com.fudianbank.base.domain.types.IdNo;
 import com.fudianbank.base.domain.types.UserId;
 import com.fudianbank.base.domain.types.UserName;
 
+import javax.jws.soap.SOAPBinding;
+
 /***
  * @Author: gaoweicai
  * @Date: 2021/3/5 17:09
  * @Description:
  */
-public class UserEntity implements Aggregate<UserId> {
-    private UserId id;
+public class UserEntity extends BaseEntity<UserId> {
     private UserName name;
     private IdNo idNo;
-
-    public void setId(UserId id){
-        this.id = id;
-    }
 
     public UserName getName() {
         return name;
@@ -33,10 +30,5 @@ public class UserEntity implements Aggregate<UserId> {
 
     public void setIdNo(IdNo idNo) {
         this.idNo = idNo;
-    }
-
-    @Override
-    public UserId getId() {
-        return id;
     }
 }

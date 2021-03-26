@@ -1,7 +1,13 @@
 package com.fudianbank.base.infrastructure.dao.converter;
 
+import com.fudianbank.base.domain.BaseEntity;
+import com.fudianbank.base.domain.UserEntity;
 import com.fudianbank.base.domain.entity.Entity;
 import com.fudianbank.base.infrastructure.dao.BaseDo;
+import com.fudianbank.base.infrastructure.dao.UserDo;
+import org.mapstruct.InheritConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /***
  * @Author: gaoweicai
@@ -9,7 +15,8 @@ import com.fudianbank.base.infrastructure.dao.BaseDo;
  * @Description:
  */
 public interface DataConverter {
-    BaseDo toDao(Entity entity);
-
-    Entity toEntity(BaseDo dao);
+    @InheritConfiguration()
+    BaseDo toDao(BaseEntity entity);
+    @Mapping(target = "id",ignore = true)
+    BaseEntity toEntity(BaseDo dao);
 }
